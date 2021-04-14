@@ -1,12 +1,10 @@
-/*首页（基于home.vue）*/
+/* 一级顶部（order）组件*/
 <template>
-<div>
-   主页
-</div>
+<div>Order顶部</div>
 </template>
 <script>
 export default {
-   name:'',
+   name:'nav-order',
 }
 </script>
 <style scoped>
