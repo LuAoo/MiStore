@@ -4,6 +4,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 // import env from './env'
 import App from './App.vue'
+// 引入iconfont
+import './assets/font/iconfont.css'
 
 /* 
 Mockjs（不用时关闭开关）
@@ -19,7 +21,7 @@ axios错误拦截代码，通过接口文档，请求码请求成功返回data�
 以及axios的基本配置
 */
 // 代理下时我们使用的时这种方式
-axios.defaults.baseURL = '/api',
+axios.defaults.baseURL ='/api',
 // 根据环境变量来获取我们不同的请求地址
 // axios.defaults.baseURL = env.baseURL,
   axios.defaults.timeout = 5000,

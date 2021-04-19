@@ -1,5 +1,5 @@
 <template>
-<!-- 跟组件 -->
+  <!-- 跟组件 -->
   <div id="app">
     <router-view></router-view>
   </div>
@@ -7,21 +7,17 @@
 
 <script>
 export default {
-  name: 'App',
-  components: {
-
-  },
+  name: "App",
+  components: {},
   data() {
     return {
-      res:{}
-    }
+      res: {},
+    };
   },
-  mounted() {
-   
-  },
-}
+};
 </script>
 
-<style> 
- 
+<style>
+@import "./assets/scss/reset.scss";
 </style>
+ 

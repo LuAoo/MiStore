@@ -1,0 +1,16 @@
+// flex布局复用：
+@mixin flex($just:space-between,$align:center) {
+  display: flex;
+  justify-content:$just;
+  align-items: $align;
+}
+// bgimg复用:
+@mixin setimg($url,$size:contain){
+  background: url($url) no-repeat center;
+  background-size: $size;
+}
+// 设置宽高：
+@mixin setsize($width,$height){
+  width:$width;
+  height:$height;
+}
