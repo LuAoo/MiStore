@@ -2,6 +2,7 @@
 <template>
   <div class="index">
     <div class="container">
+      <!-- 轮播图菜单布局 -->
       <div class="swiper_box">
         <div class="banner_menu">
           <ul class="nav_wrap">
@@ -16,7 +17,7 @@
                   <li v-for="(sub, j) in item" :key="j">
                     <a :href="sub ? '/product/' + sub.id : ''">
                       <img
-                        :src="sub ? sub.img : '/imgs/item-box-2.png'"
+                        v-lazy="sub ? sub.img : '/imgs/item-box-2.png'"
                         alt=""
                       />
                       {{ sub ? sub.name : "小米9" }}
@@ -30,7 +31,7 @@
         <!-- banner -->
         <swiper ref="mySwiper" :options="swiperOptions">
           <swiper-slide v-for="(item, index) in slideList" :key="index"
-            ><a :href="'/product/' + item.id"><img :src="item.img" alt="" /></a
+            ><a :href="'/product/' + item.id"><img v-lazy="item.img" alt="" /></a
           ></swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
           <div class="swiper-button-prev" slot="button-prev"></div>
@@ -40,7 +41,7 @@
       <!-- 广告位（坑） -->
       <div class="adv_b">
         <a :href="item.id" v-for="(item, index) in advlist" :key="index">
-          <img :src="item.img" alt="" />
+          <img v-lazy="item.img" alt="" />
         </a>
       </div>
     </div>
@@ -53,12 +54,11 @@
             v-for="(item, index) in indexproductsinfo"
             :key="index"
           >
-            {{ setRomdon() }}
-            <img class="products_item_bannerimg" :src="item.banner" alt="" />
+            <img class="products_item_bannerimg" v-lazy="item.banner" alt="" />
             <p class="products_item_title">{{ item.title }}</p>
             <div class="products_content">
               <div class="products_content_left">
-                <img :src="item.advbanner" alt="" />
+                <img v-lazy="item.advbanner" alt="" />
               </div>
               <div class="products_content_right">
                 <div
@@ -75,7 +75,7 @@
                   >
                   <img
                     class="products_content_right_item_img"
-                    :src="item.mainImage"
+                  v-lazy="item.mainImage"
                     alt=""
                   />
                   <p class="products_content_right_item_name">
@@ -86,7 +86,10 @@
                   </p>
                   <div class="products_content_right_item_price">
                     <a href="javascript:;">￥{{ item.price }}起</a>
-                    <div class="products_content_right_item_price_img"></div>
+                    <div
+                      class="products_content_right_item_price_img"
+                      @click="addcart()"
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -96,14 +99,29 @@
       </div>
     </div>
     <service-bar></service-bar>
+    <model
+      title="提示："
+      sureText="查看购物车"
+      btnType="3"
+      modelType="middle"
+      @buttonsubmit='buttonsubmit()'
+      @buttoncancel='isopenthemodel=false'
+      :showModel="isopenthemodel"
+    >
+      <!-- 组件中的body插槽 -->
+      <template v-slot:body>
+        <p>商品添加成功</p>
+      </template>
+    </model>
   </div>
 </template>
 <script>
 import ServiceBar from "../components/ServiceBar.vue";
 import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
+import Model from "../components/model.vue";
 export default {
-  components: { ServiceBar, Swiper, SwiperSlide },
+  components: { ServiceBar, Swiper, SwiperSlide, Model },
   name: "index",
   data() {
     return {
@@ -236,6 +254,8 @@ export default {
       ],
       // 随机产生的数组
       romdomarray: [],
+      // 是否打开弹框
+      isopenthemodel: false,
     };
   },
   directives: {
@@ -243,7 +263,8 @@ export default {
   },
   mounted() {
     this.getdata();
-    this.getRomdom();
+    // 坑点：如何放入v-for内让其每次循环时执行
+    this.setRomdon();
   },
   methods: {
     /* 首页数据请求 */
@@ -255,7 +276,6 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.list);
           this.indexproductsinfo[0].data = res.list.slice(4, 12);
           this.indexproductsinfo[1].data = res.list.slice(12, 20);
           this.indexproductsinfo[2].data = res.list.slice(4, 12);
@@ -265,23 +285,30 @@ export default {
     },
     setRomdon() {
       // 每次进来清空数组
-      this.romdomarray.splice(0,this.romdomarray.length);
+      this.romdomarray.splice(0, this.romdomarray.length);
       for (let index = 0; index < 4; index++) {
         var a = Math.floor(Math.random() * (7 - 0 + 1)) + 0; //含最大值，含最小值
         this.romdomarray.push(a);
       }
     },
-    getRomdom() {},
     setnewproduct(inedx) {
       for (let index = 0; index < this.romdomarray.length; index++) {
         const element = this.romdomarray[index];
-        console.log(element);
         if (inedx == element) {
           return true;
         }
       }
       return false;
     },
+    // 点击加入购物车并且弹出model操作
+    addcart() {
+      // 加入购物车功能等登录功能做完以后再做
+      this.isopenthemodel = true;
+    },
+    // model的自定义点击事件
+    buttonsubmit(){
+      this.$router.push('/cart')
+    }
   },
 };
 </script>   

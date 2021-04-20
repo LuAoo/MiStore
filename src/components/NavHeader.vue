@@ -38,7 +38,7 @@
                 <li v-for="(item, index) in temarr" :key="index">
                   <a :href="'/product/' + item.id" target="_blank">
                     <div class="children_img">
-                      <img :src="item.mainImage" alt="" />
+                      <img v-lazy="item.mainImage" alt="" />
                     </div>
                     <div class="children_name">
                       <p>{{ item.name }}</p>

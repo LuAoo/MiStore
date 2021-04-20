@@ -1,0 +1,78 @@
+.model {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  transition: all .3s;
+
+  .mask {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #000000ba;
+  }
+
+
+  /* Vue动画 */
+  &.slide-enter-active {
+    top: 0;
+  }
+
+  &.slide-leave-active {
+    top: -100%;
+  }
+
+  &.slide-enter {
+    top: -100%;
+  }
+
+  .model-dialog {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 660px;
+    height: auto;
+    background: $colorG;
+    transform: translate(-50%, -50%);
+
+    .model-header {
+      height: 60px;
+      background-color: $colorJ;
+      line-height: 60px;
+      padding: 0 25px;
+      font-size: $fontI;
+
+      .icon-close {
+        position: absolute;
+        right: 25px;
+        top: 23px;
+        width: 14px;
+        height: 14px;
+        background: url('/imgs/icon-close.png') no-repeat center;
+        background-size: contain;
+        transition: all .2s;
+
+        &:hover {
+          transform: scale(1.5);
+        }
+      }
+    }
+
+    .model-body {
+      padding: 42px 40px 54px;
+      font-size: 14px;
+    }
+
+    .model-footer {
+      height: 82px;
+      line-height: 82px;
+      text-align: center;
+      background-color: $colorJ;
+      // 在这儿做！！（按钮样式设置）
+    }
+  }
+}

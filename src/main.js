@@ -2,6 +2,7 @@ import Vue from 'vue'
 import router from "./router"
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueLazyload from "vue-lazyload"
 // import env from './env'
 import App from './App.vue'
 // 引入iconfont
@@ -43,6 +44,10 @@ axios.defaults.baseURL ='/api',
 
 //将axios挂载在Vue实例上，之后就可使用this调用axios实例。
 Vue.use(VueAxios,axios);
+//挂载lazyload插件,并配置loading
+Vue.use(VueLazyload,{
+  loading:'/imgs/loading-svg/loading-bars.svg'
+})
 Vue.config.productionTip = false
 new Vue({
   router,
