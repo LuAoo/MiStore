@@ -14,6 +14,19 @@ export default {
       res: {},
     };
   },
+  mounted() {
+    // 每刷新时拉取一次用户信息到Vuex，防止刷新时数据丢失
+    this.getUser();
+    this.getCartCount();
+  },
+  methods: {
+    getUser() {
+      this.$store.dispatch("frashIndexUpdataUsername");
+    },
+    getCartCount() {
+      this.$store.dispatch("frashIndexUpdataUpdata");
+    },
+  },
 };
 </script>
 

@@ -1,0 +1,146 @@
+.activit {
+  color: $colorA;
+}
+.login-container {
+  .login_header {
+    height: 113px;
+    width: 1226px;
+    padding: auto;
+    margin: auto;
+    img {
+      display: inline-block;
+    }
+  }
+  .login_content {
+    width: 100%;
+    height: 586px;
+    background: url("https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/393b0c08418144ad6e68d1ca36e6b32e.jpg")
+      no-repeat center;
+    .container {
+      height: 586px;
+      position: relative;
+      .login_box {
+        box-shadow: 0px -1px 4px #ccc;
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        width: 410px;
+        height: 556px;
+        background: #fff;
+        .loginorregister {
+          width: 100%;
+          height: 83px;
+          display: flex;
+          align-items: center;
+          p {
+            cursor: pointer;
+            display: inline-block;
+            width: 205px;
+            height: 83px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 83px;
+            font-size: 23px;
+            &:hover {
+              transition: all 0.3s;
+              color: $colorA;
+            }
+          }
+          .loginorregister_line {
+            width: 2px;
+            height: 30px;
+            background: #ccc;
+          }
+        }
+        .dologin,
+        .doregister {
+          width: 346px;
+          padding: auto;
+          margin: auto;
+          input {
+            width: 346px;
+            height: 50px;
+            margin-top: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            padding-left: 10px;
+          }
+          .one {
+            margin-top: 0px;
+          }
+          button {
+            margin-top: 30px;
+            width: 346px;
+            height: 50px;
+            background: $colorA;
+            border: none;
+            color: #fff;
+            font-size: 15px;
+            &:hover {
+              transition: all 0.3s;
+              background: #dc5f0b;
+            }
+          }
+        }
+        .milogo {
+           text-align: center;
+          margin: auto;
+          width: 300px;
+          margin-top: 50px;
+          img{
+             height: 60px;
+             width: 60px;
+          }
+        }
+        .addmtwechat {
+          margin: auto;
+          width: 300px;
+          height: 200px;
+          margin-top: 10px;
+          text-align: center;
+          p {
+            font-size: 14px;
+            color: #ccc;
+          }
+          img {
+            margin-top: 10px;
+            width: 150px;
+            width: 150px;
+          }
+        }
+      }
+    }
+  }
+  .login_footer {
+    margin-top: 90px;
+    text-align: center;
+    .login_footer_top {
+      ul {
+        display: flex;
+        justify-content: center;
+        li {
+          border-right: 1px solid #757575;
+          a {
+            margin-right: 20px;
+            font-size: 15px;
+            color: #757575;
+            margin-left: 30px;
+            &:hover {
+              color: $colorA;
+              transition: all 0.3s;
+            }
+          }
+          &:last-child {
+            border-right: none;
+          }
+        }
+      }
+    }
+    .login_footer_bottom {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: #757575;
+    }
+  }
+}

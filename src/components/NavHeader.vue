@@ -10,12 +10,13 @@
           <a href="javascript:;">协议规则</a>
         </div>
         <div class="tab-user">
-          <a @click="gotologin" v-if="!name">登录</a>
+          <a v-if="!name" @click="isShowLogin()">登录</a>
+          <a v-if="!name" @click="isShowRegister()">注册</a>
+          <a href="javascript:;" v-if="name" @click="loginout()">退出</a>
           <a href="javascript:;" v-if="name">{{ name | students }}</a>
-          <a href="javascript:;" v-if="!name">注册</a>
           <a href="javascript:;" v-if="name">订单信息</a>
           <a class="tab-user-cart" href="javascript:;" @click="gotocart"
-            ><span></span> 购物车(0)</a
+            ><span></span> 购物车({{ this.$store.state.cartnum }})</a
           >
         </div>
       </div>
@@ -69,7 +70,7 @@ export default {
   name: "nav-header",
   data() {
     return {
-      name: "奥奥",
+      name: this.$store.state.username,
       tabheaderdata: [
         { name: "小米手机", id: 30 },
         { name: "RedMI手机", id: 36 },
@@ -109,14 +110,37 @@ export default {
         }
       }
     },
+    // 顶部导航的一些跳转操作
     gotocart() {
       this.$router.push("/cart");
     },
     gotologin() {
       this.$router.push("/login");
     },
+    loginout() {
+      this.axios
+        .post("/user/logout", {})
+        .then((res) => {
+          console.log(res);
+          location.reload();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+    isShowLogin() {
+      this.$router.push("/login");
+      this.$store.commit("setIsShow", 1);
+    },
+    isShowRegister() {
+      this.$router.push("/login");
+      this.$store.commit("setIsShow", 2);
+    },
   },
   mounted() {
+    // 利用NavHeader的声明周期函数每次进入时拉去购物车数量（防止没有数据而造成混乱）
+    this.$store.dispatch("frashIndexUpdataUsername");
+    this.$store.dispatch("frashIndexUpdataUpdata");
     this.axios
       .get("/products", {
         params: {
@@ -136,183 +160,5 @@ export default {
 @import "../assets/scss/base.scss";
 @import "../assets/scss/mixin.scss";
 @import "../assets/scss/config.scss";
-.header {
-  // 头部最上层样式
-  .nav-topnar {
-    height: 39px;
-    line-height: 39px;
-    background: #333333;
-    .container {
-      @include flex();
-      a {
-        display: inline-block;
-        color: #b0b0b0;
-      }
-      .tab-menu {
-        a {
-          margin-right: 17px;
-        }
-      }
-      .tab-user {
-        a {
-          margin-left: 17px;
-        }
-      }
-      .tab-user-cart {
-        text-align: center;
-        @include setsize(110px, 39px);
-        background-color: #ff6600;
-        color: #fff;
-        span {
-          @include setimg("/imgs/icon-cart-checked.png");
-          display: inline-block;
-          @include setsize(16px, 12px);
-          margin-right: 4px;
-        }
-      }
-    }
-  }
-  // 头部下面样式
-  .nav-header {
-    .container {
-      position: relative;
-      height: 112px;
-      @include flex();
-      .nav-header-logo {
-        @include setsize(55px, 55px);
-        display: inline-block;
-        background: #ff6600;
-        border-radius: 22px;
-        a {
-          display: inline-block;
-          @include setsize(110px, 55px);
-          &::before {
-            content: " ";
-            display: inline-block;
-            @include setimg("/imgs/mi-logo.png");
-            @include setsize(55px, 55px);
-            transition: all 0.3s;
-          }
-          &::after {
-            content: " ";
-            display: inline-block;
-            @include setimg("/imgs/mi-home.png");
-            @include setsize(55px, 55px);
-          }
-          &:hover:before {
-            margin-left: -55px;
-            transition: all 0.3s;
-          }
-        }
-      }
-      .nav-header-list {
-        display: inline-block;
-        .list-item {
-          display: inline-block;
-          font-size: 15px;
-          span {
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            height: 112px;
-            display: inline-block;
-            line-height: 112px;
-            &:hover {
-              color: $colorA;
-            }
-          }
-          &:hover {
-            .children {
-              transition: all 0.3s;
-              height: 200px;
-              opacity: 1;
-              border: 1px solid #e5e5e5;
-            }
-          }
-          .children {
-            z-index: 10;
-            background: #fff;
-            transition: all 0.3s;
-            box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.11);
-            border: 1px solid $colorF;
-            top: 112px;
-            left: 0px;
-            position: absolute;
-            width: $min-width2;
-            height: 0px;
-            opacity: 0;
-            overflow: hidden;
-            ul {
-              @include flex();
-              li {
-                position: relative;
-                width: 16.6%;
-                text-align: center;
-                .children_img {
-                  margin-top: 25px;
-                  img {
-                    height: 100px;
-                  }
-                }
-                .children_name {
-                  margin-top: 5px;
-                  font-size: 14px;
-                  font-weight: bold;
-                  color: #000;
-                }
-                .children_price {
-                  margin-top: 5px;
-                  font-size: 14px;
-                  font-weight: bold;
-                  color: #ff6600;
-                  margin-bottom: 20px;
-                }
-                &::before {
-                  content: " ";
-                  position: absolute;
-                  right: 0px;
-                  width: 1px;
-                  height: 110px;
-                  top: 30px;
-                  border-right: 1px solid #e5e5e5;
-                }
-                &:last-child::before {
-                  display: none;
-                }
-              }
-            }
-          }
-        }
-      }
-      .nav-header-search {
-        .wapper {
-          @include setsize(319px, 52px);
-          @include flex();
-          border: 1px solid #e0e0e0;
-          input {
-            color: #b0b0b0;
-            font-size: 15px;
-            border: none;
-            border-right: 1px solid #e0e0e0;
-            @include setsize(264px, 100%);
-            padding-left: 10px;
-          }
-          .search_ok {
-            width: 55px;
-            text-align: center;
-            a {
-              @include setsize(18px, 18px);
-              display: inline-block;
-              @include setimg("/imgs/icon-search.png");
-            }
-          }
-          &:hover #search_input,
-          &:hover {
-            border: 1px #ff6600 solid;
-          }
-        }
-      }
-    }
-  }
-}
+@import "../assets/scss/navheader.scss";
 </style>
