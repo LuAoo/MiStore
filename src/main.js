@@ -24,25 +24,29 @@ axios错误拦截代码，通过接口文档，请求码请求成功返回data�
 以及axios的基本配置
 */
 // 代理下时我们使用的时这种方式
+// const that=this;
 axios.defaults.baseURL = '/api',
   // 根据环境变量来获取我们不同的请求地址
   // axios.defaults.baseURL = env.baseURL,
   axios.defaults.timeout = 5000,
+
   axios.interceptors.response.use(response => {
     // Do something before response is sent
     let res = response.data;
-    let path = location.pathname;
     if (res.status == 0) {
-      // if (!res.data) {
-      //   return res.msg;
-      // }
       return res.data;
     } else if (res.status == 10) {
       // 这里判断请求如果用户未登录且不在index页面则跳转登录
-      if (path!= "/index") {
-        // window.location.href ='/login'
-        // 使用路由跳转
-        this.$router.push('/login')
+      let path = location.pathname;
+      if (path != "/index" && path != "/") {
+        // 方法一：使用原始方法
+        // 判断是否已经在login，如果在则不跳转
+        // if (path != "/login") {
+        //   window.location.href = '/login'
+        // }
+        // 方法一：使用router进行跳转
+        // 使用路由跳转（有坑，需要在router.js中处理）
+        router.push('/login')
       }
     } else {
       alert(res.msg);

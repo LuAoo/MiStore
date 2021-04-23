@@ -1,5 +1,11 @@
 import vue from 'vue';
 import Router from "vue-router"
+// 处理高版本路由报错
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch(err => err)
+}
 vue.use(Router);
 // 使用路由懒加载的方式加载路由
 var cart = () => import('./pages/cart.vue');
@@ -15,14 +21,14 @@ var product = () => import('./pages/product.vue');
 var alipay = () => import('./pages/alipay.vue');
 
 
-var router=new Router({
+var router = new Router({
   routes: [
     // 初始默认路由(home)
     {
       path: '/',
       name: '',
       component: home,
-      redirect:'/index',
+      redirect: '/index',
       children: [
         // 商品详情（动态）
         {
@@ -87,6 +93,6 @@ var router=new Router({
       component: login
     }
   ],
-  mode:'history'
+  mode: 'history'
 });
 export default router

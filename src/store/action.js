@@ -13,7 +13,6 @@ export default {
     axios.get("/user").then((res) => {
       if (res) {
         context.commit('setUsername', res.username);
-        console.log(res);
       }
     });
   },
@@ -21,7 +20,6 @@ export default {
     axios.get("/carts/products/sum").then((res) => {
       if (res) {
         context.commit('setCartnum', res)
-        console.log(res);
       }
     });
   },
