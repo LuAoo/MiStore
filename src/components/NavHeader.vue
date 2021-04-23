@@ -10,11 +10,11 @@
           <a href="javascript:;">协议规则</a>
         </div>
         <div class="tab-user">
-          <a v-if="!name" @click="isShowLogin()">登录</a>
-          <a v-if="!name" @click="isShowRegister()">注册</a>
-          <a href="javascript:;" v-if="name" @click="loginout()">退出</a>
-          <a href="javascript:;" v-if="name">{{ name | students }}</a>
-          <a href="javascript:;" v-if="name">订单信息</a>
+          <a v-if="!username" @click="isShowLogin()">登录</a>
+          <a v-if="!username" @click="isShowRegister()">注册</a>
+          <a href="javascript:;" v-if="username" @click="loginout()">退出</a>
+          <a href="javascript:;" v-if="username">{{ username | students }}</a>
+          <a href="javascript:;" v-if="username">订单信息</a>
           <a class="tab-user-cart" href="javascript:;" @click="gotocart"
             ><span></span> 购物车({{ this.$store.state.cartnum }})</a
           >
@@ -25,7 +25,7 @@
     <div class="nav-header">
       <div class="container">
         <div class="nav-header-logo">
-          <a href="/index"></a>
+          <a @click="$router.push('/index')"></a>
         </div>
         <div
           class="nav-header-list"
@@ -37,7 +37,7 @@
             <div class="children">
               <ul>
                 <li v-for="(item, index) in temarr" :key="index">
-                  <a :href="'/product/' + item.id" target="_blank">
+                  <a @click="$router.push('/product/' + item.id)" target="_blank">
                     <div class="children_img">
                       <img v-lazy="item.mainImage" alt="" />
                     </div>
@@ -70,7 +70,6 @@ export default {
   name: "nav-header",
   data() {
     return {
-      name: this.$store.state.username,
       tabheaderdata: [
         { name: "小米手机", id: 30 },
         { name: "RedMI手机", id: 36 },
@@ -153,6 +152,15 @@ export default {
           this.product.push(res.list[index]);
         }
       });
+  },
+  computed: {
+    // 这里防止在拉去数据后使用计算属性的方式来解决无数据状况
+    username(){
+      return this.$store.state.username
+    },
+    cartcount(){
+      return this.$store.state.cartnum
+    }
   },
 };
 </script>

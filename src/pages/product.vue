@@ -124,7 +124,6 @@ export default {
       })
       .then(res => {
         this.productsData=res
-        console.log(this.productsData);
       })
     },
     // 跳转到指定页面

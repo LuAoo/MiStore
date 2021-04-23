@@ -15,7 +15,7 @@
               <div class="children">
                 <ul v-for="(item, i) in menulist" :key="i">
                   <li v-for="(sub, j) in item" :key="j">
-                    <a :href="sub ? '/product/' + sub.id : ''">
+                    <a @click="$router.push(sub ? '/product/' + sub.id : '')">
                       <img
                         v-lazy="sub ? sub.img : '/imgs/item-box-2.png'"
                         alt=""
@@ -31,7 +31,7 @@
         <!-- banner -->
         <swiper ref="mySwiper" :options="swiperOptions">
           <swiper-slide v-for="(item, index) in slideList" :key="index"
-            ><a :href="'/product/' + item.id"><img v-lazy="item.img" alt="" /></a
+            ><a @click="$router.push('/product/' + item.id)"><img v-lazy="item.img" alt="" /></a
           ></swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
           <div class="swiper-button-prev" slot="button-prev"></div>
@@ -40,7 +40,7 @@
       </div>
       <!-- 广告位（坑） -->
       <div class="adv_b">
-        <a :href="item.id" v-for="(item, index) in advlist" :key="index">
+        <a @click="$router.push(item.id)" v-for="(item, index) in advlist" :key="index">
           <img v-lazy="item.img" alt="" />
         </a>
       </div>
