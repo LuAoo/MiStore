@@ -48,9 +48,11 @@ axios.defaults.baseURL = '/api',
         // 使用路由跳转（有坑，需要在router.js中处理）
         router.push('/login')
       }
+      // 在这里抛出reject，因为promise默认会resolve，这里的结果会直接到then里面，达不到我们预期的效果
+      return Promise.reject(res);
     } else {
       alert(res.msg);
-      return Promise.reject();
+      return Promise.reject(res);
     }
   }, error => {
     // Do something with response error

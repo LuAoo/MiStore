@@ -6,7 +6,6 @@
         <div class="model-header">
           <span>{{title}}</span>
           <a
-            href="javascripts:;"
             class="icon-close"
             @click="$emit('buttoncancel')"
           ></a>
@@ -16,14 +15,12 @@
         </div>
         <div class="model-footer">
           <a
-            href="javascripts:;"
             v-if="btnType == 1"
             class="btn"
             @click="$emit('buttonsubmit')"
             >{{ sureText }}</a
           >
           <a
-            href="javascripts:;"
             v-if="btnType == 2"
             class="btn"
             @click="$emit('buttoncancel')"

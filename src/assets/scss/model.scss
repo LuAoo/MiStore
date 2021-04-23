@@ -38,7 +38,9 @@
     height: auto;
     background: $colorG;
     transform: translate(-50%, -50%);
-
+    a{
+      cursor: pointer;
+    }
     .model-header {
       height: 60px;
       background-color: $colorJ;

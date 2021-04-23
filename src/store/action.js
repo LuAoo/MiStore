@@ -13,7 +13,6 @@ export default {
     axios.get("/user").then((res) => {
       if (res) {
         context.commit('setUsername', res.username);
-        console.log(res);
       }
     });
   },

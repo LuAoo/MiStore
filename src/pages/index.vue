@@ -31,7 +31,8 @@
         <!-- banner -->
         <swiper ref="mySwiper" :options="swiperOptions">
           <swiper-slide v-for="(item, index) in slideList" :key="index"
-            ><a @click="$router.push('/product/' + item.id)"><img v-lazy="item.img" alt="" /></a
+            ><a @click="$router.push('/product/' + item.id)"
+              ><img v-lazy="item.img" alt="" /></a
           ></swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
           <div class="swiper-button-prev" slot="button-prev"></div>
@@ -40,7 +41,11 @@
       </div>
       <!-- 广告位（坑） -->
       <div class="adv_b">
-        <a @click="$router.push(item.id)" v-for="(item, index) in advlist" :key="index">
+        <a
+          @click="$router.push(item.id)"
+          v-for="(item, index) in advlist"
+          :key="index"
+        >
           <img v-lazy="item.img" alt="" />
         </a>
       </div>
@@ -75,7 +80,7 @@
                   >
                   <img
                     class="products_content_right_item_img"
-                  v-lazy="item.mainImage"
+                    v-lazy="item.mainImage"
                     alt=""
                   />
                   <p class="products_content_right_item_name">
@@ -88,7 +93,7 @@
                     <a href="javascript:;">￥{{ item.price }}起</a>
                     <div
                       class="products_content_right_item_price_img"
-                      @click="addcart()"
+                      @click="addcart(item.id)"
                     ></div>
                   </div>
                 </div>
@@ -104,8 +109,8 @@
       sureText="查看购物车"
       btnType="3"
       modelType="middle"
-      @buttonsubmit='buttonsubmit()'
-      @buttoncancel='isopenthemodel=false'
+      @buttonsubmit="buttonsubmit()"
+      @buttoncancel="isopenthemodel = false"
       :showModel="isopenthemodel"
     >
       <!-- 组件中的body插槽 -->
@@ -301,14 +306,25 @@ export default {
       return false;
     },
     // 点击加入购物车并且弹出model操作
-    addcart() {
+    addcart(id) {
       // 加入购物车功能等登录功能做完以后再做
-      this.isopenthemodel = true;
+      this.axios
+        .post("/carts", {
+          productId:id,
+          selected: true,
+        })
+        .then((res) => {
+          console.log(res);
+          this.isopenthemodel = true;
+          this.$store.dispatch("setCartnum", res.cartTotalQuantity);
+        }).catch((res) => {
+          alert('请先登录哦'+res)
+        })
     },
     // model的自定义点击事件
-    buttonsubmit(){
-      this.$router.push('/cart')
-    }
+    buttonsubmit() {
+      this.$router.push("/cart");
+    },
   },
 };
 </script>   

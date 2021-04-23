@@ -64,7 +64,7 @@ export default {
   border-top: 1px solid #ccc;
   background: #fff;
   width: 100%;
-  box-shadow: 0px 5px 6px #cccccc;
+  box-shadow: 0px 5px 10px #cccccc;
 
   .container_box {
     height: 71px;

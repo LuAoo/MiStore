@@ -2,7 +2,7 @@
 <template>
   <div class="login-container">
     <div class="login_header">
-      <img src="/imgs/milogo.png" alt="" />
+      <img @click="gotoindex()" src="/imgs/milogo.png" alt="" />
     </div>
     <div class="login_content">
       <div class="container">
@@ -95,6 +95,9 @@ export default {
     };
   },
   methods: {
+    gotoindex(){
+      this.$router.push('/index')
+    },
     //登录页面Tab设置
     isshowwich(id) {
       if (id == 1) {
