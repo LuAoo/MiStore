@@ -28,13 +28,11 @@
           >
           <div class="btn-group" v-if="btnType == 3">
             <a
-              href="javascripts:;"
               class="btn"
               @click="$emit('buttonsubmit')"
               >{{ sureText }}</a
             >
             <a
-              href="javascripts:;"
               class="btn"
               @click="$emit('buttoncancel')"
               >{{ cancelText }}</a

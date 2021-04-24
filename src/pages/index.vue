@@ -314,7 +314,6 @@ export default {
           selected: true,
         })
         .then((res) => {
-          console.log(res);
           this.isopenthemodel = true;
           this.$store.dispatch("setCartnum", res.cartTotalQuantity);
         }).catch((res) => {
