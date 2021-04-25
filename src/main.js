@@ -5,10 +5,14 @@ import VueAxios from 'vue-axios'
 import VueLazyload from "vue-lazyload"
 import VueCookie from 'vue-cookie'
 import store from './store/index'
+import { Message } from "element-ui";
 // import env from './env'
 import App from './App.vue'
 // 引入iconfont
 import './assets/font/iconfont.css'
+
+// 按需加载element组件
+Vue.prototype.$message=Message;
 
 /* 
 Mockjs（不用时关闭开关）
@@ -51,7 +55,8 @@ axios.defaults.baseURL = '/api',
       // 在这里抛出reject，因为promise默认会resolve，这里的结果会直接到then里面，达不到我们预期的效果
       return Promise.reject(res);
     } else {
-      alert(res.msg);
+      // 这里没有用到Vue的实例，因此需要直接使用Message
+      Message.error(res.msg);
       return Promise.reject(res);
     }
   }, error => {

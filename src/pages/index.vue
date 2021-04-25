@@ -125,6 +125,7 @@ import ServiceBar from "../components/ServiceBar.vue";
 import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 import Model from "../components/model.vue";
+
 export default {
   components: { ServiceBar, Swiper, SwiperSlide, Model },
   name: "index",
@@ -310,15 +311,17 @@ export default {
       // 加入购物车功能等登录功能做完以后再做
       this.axios
         .post("/carts", {
-          productId:id,
+          productId: id,
           selected: true,
         })
         .then((res) => {
           this.isopenthemodel = true;
           this.$store.dispatch("setCartnum", res.cartTotalQuantity);
-        }).catch((res) => {
-          alert('请先登录哦'+res)
         })
+        .catch(() => {
+          // Message.warning("请先登录哦" + res)
+          this.$message.warning('请先登录哦')
+        });
     },
     // model的自定义点击事件
     buttonsubmit() {

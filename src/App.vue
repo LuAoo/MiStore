@@ -16,8 +16,10 @@ export default {
   },
   mounted() {
     // 每刷新时拉取一次用户信息到Vuex，防止刷新时数据丢失
-    this.getUser();
-    this.getCartCount();
+    if (this.$cookie.get("useId")) {
+      this.getUser();
+      this.getCartCount();
+    }
   },
   methods: {
     getUser() {

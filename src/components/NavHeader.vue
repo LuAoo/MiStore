@@ -37,7 +37,10 @@
             <div class="children">
               <ul>
                 <li v-for="(item, index) in temarr" :key="index">
-                  <a @click="$router.push('/product/' + item.id)" target="_blank">
+                  <a
+                    @click="$router.push('/product/' + item.id)"
+                    target="_blank"
+                  >
                     <div class="children_img">
                       <img v-lazy="item.mainImage" alt="" />
                     </div>
@@ -119,8 +122,8 @@ export default {
     loginout() {
       this.axios
         .post("/user/logout", {})
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          this.$cookie.set("useId", "", { expires: "-1" });
           location.reload();
         })
         .catch((err) => {
@@ -138,8 +141,10 @@ export default {
   },
   mounted() {
     // 利用NavHeader的声明周期函数每次进入时拉去购物车数量（防止没有数据而造成混乱）
-    this.$store.dispatch("frashIndexUpdataUsername");
-    this.$store.dispatch("frashIndexUpdataUpdata");
+    if (this.$cookie.get("useId")) {
+      this.$store.dispatch("frashIndexUpdataUsername");
+      this.$store.dispatch("frashIndexUpdataUpdata");
+    }
     this.axios
       .get("/products", {
         params: {
@@ -155,12 +160,12 @@ export default {
   },
   computed: {
     // 这里防止在拉去数据后使用计算属性的方式来解决无数据状况
-    username(){
-      return this.$store.state.username
+    username() {
+      return this.$store.state.username;
     },
-    cartcount(){
-      return this.$store.state.cartnum
-    }
+    cartcount() {
+      return this.$store.state.cartnum;
+    },
   },
 };
 </script>

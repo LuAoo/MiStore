@@ -95,8 +95,8 @@ export default {
     };
   },
   methods: {
-    gotoindex(){
-      this.$router.push('/index')
+    gotoindex() {
+      this.$router.push("/index");
     },
     //登录页面Tab设置
     isshowwich(id) {
@@ -111,45 +111,60 @@ export default {
     //  登录的点击事件
     loginin() {
       var { username, password } = this;
-      this.axios({
-        method: "post",
-        url: "/user/login",
-        data: {
-          username,
-          password,
-        },
-      })
-        .then((result) => {
-          // 将id存入cookie
-          this.$cookie.set("useId", result.id, { expires: "1M" });
-          // 使用vuex将用户名存入，然后在首页等地方展示
-          this.$store.dispatch("setUsername", result.username);
-          this.$router.push("/index");
+      if (username == "" || password == "") {
+        this.$message.error("请补全信息");
+      } else {
+        this.axios({
+          method: "post",
+          url: "/user/login",
+          data: {
+            username,
+            password,
+          },
         })
-        .catch(() => {
-          (this.username = ""), (this.password = "");
-        });
+          .then((result) => {
+            // 将id存入cookie
+            this.$cookie.set("useId", result.id, { expires: "1M" });
+            // 使用vuex将用户名存入，然后在首页等地方展示
+            this.$store.dispatch("setUsername", result.username);
+            this.$router.push("/index");
+          })
+          .catch(() => {
+            (this.username = ""), (this.password = "");
+          });
+      }
     },
     //注册的点击事件
     registerin() {
       var { registerusername, registerpassword, registeremail } = this;
-      this.axios({
-        method: "post",
-        url: "/user/register",
-        data: {
-          username: registerusername,
-          password: registerpassword,
-          email: registeremail,
-        },
-      })
-        .then((result) => {
-          alert(result);
+      if (
+        registerusername == "" ||
+        registerpassword == "" ||
+        registeremail == ""
+      ) {
+        this.$message.error("请补全信息");
+      } else {
+        this.axios({
+          method: "post",
+          url: "/user/register",
+          data: {
+            username: registerusername,
+            password: registerpassword,
+            email: registeremail,
+          },
         })
-        .catch(() => {
-          (this.registerusername = ""),
-            (this.registerpassword = ""),
-            (this.registeremail = "");
-        });
+          .then(() => {
+            this.$message.success("注册成功");
+            (this.registerusername = ""),
+              (this.registerpassword = ""),
+              (this.registeremail = "");
+          })
+          .catch(() => {
+            (this.registerusername = ""),
+              (this.registerpassword = ""),
+              (this.registeremail = "");
+          });
+      }
     },
   },
 };
