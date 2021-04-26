@@ -122,7 +122,6 @@ export default {
     //获取初始化数据
     getCartData() {
       this.axios.get("/carts").then((res) => {
-        console.log(res);
         this.setBaseData(res);
       });
     },
@@ -140,13 +139,13 @@ export default {
 
       if (back == "-") {
         if (quantity <= 1) {
-          this.$messgae.warning("商品数量最少为1件哦");
+          this.$message.warning("商品数量最少为1件哦");
           return;
         }
         quantity -= 1;
       } else if (back == "+") {
         if (quantity >= item.productStock) {
-          this.$messgae.warning("没货啦！");
+          this.$message.warning("没货啦！");
           return;
         }
         quantity += 1;
@@ -166,13 +165,13 @@ export default {
     removeTheProduct(item) {
       this.axios.delete(`/carts/${item.productId}`).then((res) => {
         this.setBaseData(res);
-        this.$messgae.success("移除成功");
+        this.$message.success("移除成功");
       });
     },
     // 去结算
     goToPay() {
       if (this.cartTotalPrice == 0) {
-        this.$messgae.warning("你还没有选择商品哦");
+        this.$message.warning("你还没有选择商品哦");
         return;
       }
       this.$router.push("/order/Confrim");

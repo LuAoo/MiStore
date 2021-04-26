@@ -10,6 +10,9 @@ import { Message } from "element-ui";
 import App from './App.vue'
 // 引入iconfont
 import './assets/font/iconfont.css'
+import Distpicker from 'v-distpicker'
+Vue.component('v-distpicker', Distpicker)
+
 
 // 按需加载element组件
 Vue.prototype.$message=Message;
