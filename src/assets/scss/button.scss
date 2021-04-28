@@ -1,7 +1,9 @@
 .btn {
   display: inline-block;
-  width: 110px;
-  line-height: 30px;
+  width: 130px;
+  height: 40px;
+  font-size: 13px;
+  line-height: 40px;
   text-align: center;
   background: $colorA;
   color: $colorG;
@@ -17,7 +19,9 @@
 .btn-default {
   background: #b0b0b0;
   color: $colorG;
-  border: 1px solid $colorF;
+  &:hover{
+    background: #b0b0b0;
+  }
 }
 
 .btn-large {

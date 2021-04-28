@@ -154,6 +154,7 @@
               flex-wrap: wrap;
               align-items: stretch;
               .products_content_right_item {
+                cursor: pointer;
                 transition: all 0.5s; /*动画过渡*/
                 @include setsize(234px, 295px);
                 text-align: center;

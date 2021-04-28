@@ -1,6 +1,7 @@
 /* 订单确认（基于order.vue） */
 <template>
   <div>
+    <nav-order title="订单确认" titlesub="请认真填核对填写您的订单信息"></nav-order>
     <div class="order_confrim">
       <div class="container">
         <p class="container_top_p">收货地址</p>
@@ -167,8 +168,9 @@
 <script>
 import model from "../components/model.vue";
 import VDistpicker from "v-distpicker";
+import NavOrder from '../components/NavOrder.vue';
 export default {
-  components: { model, VDistpicker },
+  components: { model, VDistpicker, NavOrder },
   name: "order-confrim",
   data() {
     return {
@@ -187,6 +189,7 @@ export default {
   },
 
   mounted() {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
     this.getProductInfo();
     this.getAddressInfo();
   },

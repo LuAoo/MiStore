@@ -68,6 +68,8 @@
               <div class="products_content_right">
                 <div
                   class="products_content_right_item"
+                  @click="$router.push('/product/' + item.id)"
+                  target="_blank"
                   v-for="(item, index1) in item.data"
                   :key="index1"
                 >
@@ -104,30 +106,15 @@
       </div>
     </div>
     <service-bar></service-bar>
-    <model
-      title="提示："
-      sureText="查看购物车"
-      btnType="3"
-      modelType="middle"
-      @buttonsubmit="buttonsubmit()"
-      @buttoncancel="isopenthemodel = false"
-      :showModel="isopenthemodel"
-    >
-      <!-- 组件中的body插槽 -->
-      <template v-slot:body>
-        <p>商品添加成功</p>
-      </template>
-    </model>
   </div>
 </template>
 <script>
 import ServiceBar from "../components/ServiceBar.vue";
 import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
-import Model from "../components/model.vue";
 
 export default {
-  components: { ServiceBar, Swiper, SwiperSlide, Model },
+  components: { ServiceBar, Swiper, SwiperSlide},
   name: "index",
   data() {
     return {
@@ -305,27 +292,6 @@ export default {
         }
       }
       return false;
-    },
-    // 点击加入购物车并且弹出model操作
-    addcart(id) {
-      // 加入购物车功能等登录功能做完以后再做
-      this.axios
-        .post("/carts", {
-          productId: id,
-          selected: true,
-        })
-        .then((res) => {
-          this.isopenthemodel = true;
-          this.$store.dispatch("setCartnum", res.cartTotalQuantity);
-        })
-        .catch(() => {
-          // Message.warning("请先登录哦" + res)
-          this.$message.warning('请先登录哦')
-        });
-    },
-    // model的自定义点击事件
-    buttonsubmit() {
-      this.$router.push("/cart");
     },
   },
 };

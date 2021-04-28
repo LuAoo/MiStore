@@ -15,7 +15,7 @@ Vue.component('v-distpicker', Distpicker)
 
 
 // 按需加载element组件
-Vue.prototype.$message=Message;
+Vue.prototype.$message = Message;
 
 /* 
 Mockjs（不用时关闭开关）
@@ -63,8 +63,11 @@ axios.defaults.baseURL = '/api',
       return Promise.reject(res);
     }
   }, error => {
-    // Do something with response error
-    return Promise.reject(error);
+    // Do something with response error// 服务器异常处理
+    console.log(error);
+    let res = error.response
+    Message.error(res);
+    return Promise.reject(error)
   });
 
 //将axios挂载在Vue实例上，之后就可使用this调用axios实例。

@@ -23,6 +23,7 @@
           <p class="cart_content_top_6">操作</p>
         </div>
         <!-- 购物车单个列表 -->
+        <loading v-if="showloading"></loading>
         <div
           class="cart_content_list"
           v-for="(item, index) in cartProductVoList"
@@ -88,17 +89,19 @@
   </div>
 </template>
 <script>
+import Loading from "../components/loading.vue";
 import NavFooter from "../components/NavFooter.vue";
 import NavOrder from "../components/NavOrder.vue";
 import ServiceBar from "../components/ServiceBar.vue";
 export default {
-  components: { NavFooter, ServiceBar, NavOrder },
+  components: { NavFooter, ServiceBar, NavOrder, Loading },
   name: "cart",
   data() {
     return {
       cartProductVoList: [],
       selectedAll: false,
       cartTotalPrice: 0,
+      showloading: true,
     };
   },
   computed: {
@@ -115,6 +118,7 @@ export default {
   methods: {
     //设置基础数据
     setBaseData(res) {
+      this.showloading = false;
       this.cartProductVoList = res.cartProductVoList;
       this.cartTotalPrice = res.cartTotalPrice;
       this.selectedAll = res.selectedAll;
@@ -123,6 +127,7 @@ export default {
     getCartData() {
       this.axios.get("/carts").then((res) => {
         this.setBaseData(res);
+        // 关闭loading
       });
     },
     //  设置是否全选

@@ -134,6 +134,7 @@ export default {
     };
   },
   mounted() {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
     this.getdata();
   },
   methods: {
@@ -153,8 +154,8 @@ export default {
         })
         .then((res) => {
           console.log(res);
-         //  将数据vuex中数据同步
-          this.$store.dispatch("setCartnum",res.cartTotalQuantity);
+          //  将数据vuex中数据同步
+          this.$store.dispatch("setCartnum", res.cartTotalQuantity);
           this.$router.push("/cart");
         });
     },

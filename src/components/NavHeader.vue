@@ -16,7 +16,7 @@
           <a href="javascript:;" v-if="username">{{ username | students }}</a>
           <a href="javascript:;" v-if="username">订单信息</a>
           <a class="tab-user-cart" href="javascript:;" @click="gotocart"
-            ><span></span> 购物车({{ this.$store.state.cartnum }})</a
+            ><span></span> 购物车({{ cartcount }})</a
           >
         </div>
       </div>
@@ -38,8 +38,7 @@
               <ul>
                 <li v-for="(item, index) in temarr" :key="index">
                   <a
-                    @click="$router.push('/product/' + item.id)"
-                    target="_blank"
+                     @click="addcart(item.id)"
                   >
                     <div class="children_img">
                       <img v-lazy="item.mainImage" alt="" />
@@ -66,11 +65,27 @@
         </div>
       </div>
     </div>
+        <model
+      title="提示："
+      sureText="查看购物车"
+      btnType="3"
+      modelType="middle"
+      @buttonsubmit="buttonsubmit()"
+      @buttoncancel="isopenthemodel = false"
+      :showModel="isopenthemodel"
+    >
+      <!-- 组件中的body插槽 -->
+      <template v-slot:body>
+        <p>商品添加成功</p>
+      </template>
+    </model>
   </div>
 </template>
 <script>
+import Model from './model.vue';
 export default {
   name: "nav-header",
+  components:{Model},
   data() {
     return {
       tabheaderdata: [
@@ -86,6 +101,7 @@ export default {
       ],
       product: [],
       temarr: [],
+      isopenthemodel: false,
     };
   },
   filters: {
@@ -100,6 +116,27 @@ export default {
     },
   },
   methods: {
+     // 点击加入购物车并且弹出model操作(修改自index)
+    addcart(id) {
+      // 加入购物车功能等登录功能做完以后再做
+      this.axios
+        .post("/carts", {
+          productId: id,
+          selected: true,
+        })
+        .then((res) => {
+          this.isopenthemodel = true;
+          this.$store.dispatch("setCartnum", res.cartTotalQuantity);
+        })
+        .catch(() => {
+          // Message.warning("请先登录哦" + res)
+          this.$message.warning("请先登录哦");
+        });
+    },
+    // model的自定义点击事件
+    buttonsubmit() {
+      this.$router.push("/cart");
+    },
     // itemlist的id触碰事件
     getdata(id) {
       this.temarr.splice(0, this.temarr.length);
