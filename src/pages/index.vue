@@ -95,7 +95,6 @@
                     <a href="javascript:;">￥{{ item.price }}起</a>
                     <div
                       class="products_content_right_item_price_img"
-                      @click="addcart(item.id)"
                     ></div>
                   </div>
                 </div>

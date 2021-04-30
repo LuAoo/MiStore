@@ -14,7 +14,7 @@
           <a v-if="!username" @click="isShowRegister()">注册</a>
           <a href="javascript:;" v-if="username" @click="loginout()">退出</a>
           <a href="javascript:;" v-if="username">{{ username | students }}</a>
-          <a href="javascript:;" v-if="username">订单信息</a>
+          <a @click="$router.push('/order/List')" v-if="username">订单信息</a>
           <a class="tab-user-cart" href="javascript:;" @click="gotocart"
             ><span></span> 购物车({{ cartcount }})</a
           >

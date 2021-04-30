@@ -24,6 +24,9 @@
         </div>
         <!-- 购物车单个列表 -->
         <loading v-if="showloading"></loading>
+        <no-data
+          v-if="showloading == false && cartProductVoList.length == 0"
+        ></no-data>
         <div
           class="cart_content_list"
           v-for="(item, index) in cartProductVoList"
@@ -93,8 +96,9 @@ import Loading from "../components/loading.vue";
 import NavFooter from "../components/NavFooter.vue";
 import NavOrder from "../components/NavOrder.vue";
 import ServiceBar from "../components/ServiceBar.vue";
+import NoData from "../components/noData";
 export default {
-  components: { NavFooter, ServiceBar, NavOrder, Loading },
+  components: { NavFooter, ServiceBar, NavOrder, Loading, NoData },
   name: "cart",
   data() {
     return {

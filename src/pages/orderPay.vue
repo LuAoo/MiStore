@@ -151,6 +151,7 @@ export default {
     // 初始化数据
     getOrderDetails() {
       this.axios.get(`/orders/${this.orderNo}`).then((res) => {
+        console.log(res);
         this.orderItemVoList = res.orderItemVoList;
         this.shippingVo = res.shippingVo;
         this.payment = res.payment;
@@ -376,3 +377,4 @@ export default {
   }
 }
 </style>
+ 

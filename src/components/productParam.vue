@@ -46,6 +46,7 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop;
       this.isFixed = scrollHeight < 151 ? false : true;
+      
     },
   },
 };
@@ -57,15 +58,15 @@ export default {
 .isfixed {
   position: fixed;
   top: 0px;
+  box-shadow: 0px 5px 10px #cccccc;
 }
 .product_param_box {
   z-index:10;
   height: 71px;
   border-top: 1px solid #ccc;
   background: #fff;
+  // border-bottom: 1px solid #ccc;
   width: 100%;
-  box-shadow: 0px 5px 10px #cccccc;
-
   .container_box {
     height: 71px;
     @include flex();

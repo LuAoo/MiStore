@@ -18,7 +18,7 @@
               收件人:{{ item.receiverName }}
             </p>
             <p class="container_address_list_item_num">
-              电话:{{ item.receiverMobile }}
+              电话:{{ item.receiverMobile}}
             </p>
             <p class="container_address_list_item_address">
               地址:{{
@@ -136,7 +136,7 @@
           class="model_input model_input2"
           type="text"
           placeholder="手机号"
-          v-model="inputModelData.receiverPhone"
+          v-model="inputModelData.receiverMobile"
         />
         <template>
           <div class="model_select">
@@ -217,6 +217,7 @@ export default {
     getAddressInfo() {
       // 请求当前admin的收获地址列表
       this.axios.get("/shippings").then((res) => {
+        console.log(res);
         this.addressList = res.list;
       });
     },
@@ -248,7 +249,6 @@ export default {
       let params = {};
       let {
         receiverName,
-        receiverPhone,
         receiverMobile,
         receiverProvince,
         receiverCity,
@@ -271,7 +271,7 @@ export default {
         var msg = "";
         if (!receiverName) {
           msg = "请输入姓名";
-        } else if (!receiverPhone || !/\d{11}/.test(receiverPhone)) {
+        } else if (!receiverMobile || !/\d{11}/.test(receiverMobile)) {
           msg = "您没有输入电话或者电话格式有误";
         } else if (!receiverProvince || !receiverCity || !receiverDistrict) {
           msg = "请选择您的地址";
@@ -286,7 +286,6 @@ export default {
         }
         params = {
           receiverName,
-          receiverPhone,
           receiverMobile,
           receiverProvince,
           receiverCity,
