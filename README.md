@@ -74,7 +74,7 @@ VueProject
 
 首先贴出我们项目的几个主要实现效果图
 
-![image-20210430170358717](C:\Users\LuAo\AppData\Roaming\Typora\typora-user-images\image-20210430170358717.png)
+![image-20210430170358717](https://github.com/LuAoo/MiStore/blob/master/public/imgs/%E7%A8%BF%E7%BA%B8.PNG)
 
 ## 1.2  主要插件
 
