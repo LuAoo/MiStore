@@ -125,7 +125,6 @@ export default {
       this.axios.get(`/products/${id}`, {
       })
       .then(res => {
-        console.log(res)
         this.productsData=res
       })
     },
