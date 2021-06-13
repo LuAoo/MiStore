@@ -13,7 +13,6 @@ import './assets/font/iconfont.css'
 import Distpicker from 'v-distpicker'
 Vue.component('v-distpicker', Distpicker)
 
-
 // 按需加载element组件
 Vue.prototype.$message = Message;
 

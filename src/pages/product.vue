@@ -118,12 +118,14 @@ export default {
     this.getdata();
   },
   methods: {
+    
     // 获取接口数据
     getdata(){
       let id=this.$route.params.id;
       this.axios.get(`/products/${id}`, {
       })
       .then(res => {
+        console.log(res)
         this.productsData=res
       })
     },
